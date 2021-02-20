@@ -59,16 +59,18 @@ def delete_product(conn, product_id):
     cursor.execute(query)
     conn.commit()
 
-def update_product(conn, column, val, product_id):
+def update_product(conn, col, val, product_id):
     """Update the product with the specified column and value.""" 
     cursor = conn.cursor()
-    query = (f'UPDATE products SET {column} = {val} WHERE product_id = {product_id}')
+    query = (f'UPDATE products SET {col} = {val} WHERE product_id = {product_id}')
     cursor.execute(query)
     conn.commit()
 
 
 if __name__ == "__main__":
-    # conn =  get_sql_connection()
-    # print(get_all_products(conn))
-    # print(delete_product(conn, 13))
-    print('owo')
+    conn =  get_sql_connection()
+    print(insert_new_product(conn, {
+        'product_name': 'shampoo',
+        'uom_id': '2',
+        'price_per_unit': '30'
+    }))
