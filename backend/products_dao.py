@@ -4,12 +4,11 @@
 import psycopg2
 
 # Config
-from backend import config
 from backend import get_sql_connection
 
 
 def get_all_products(conn):
-    """Connect to the DB and return all the products."""
+    """return all the products."""
 
     # create cursor
     cursor = conn.cursor()
@@ -54,12 +53,14 @@ def insert_new_product(conn, product):
     return cursor.lastrowid
 
 def delete_product(conn, product_id):
+    """Delete the specified product."""
     cursor = conn.cursor()
     query = ("DELETE FROM products WHERE product_id=" + str(product_id))
     cursor.execute(query)
     conn.commit()
 
 def update_product(conn, column, val, product_id):
+    """Update the product with the specified column and value.""" 
     cursor = conn.cursor()
     query = (f'UPDATE products SET {column} = {val} WHERE product_id = {product_id}')
     cursor.execute(query)
@@ -67,7 +68,7 @@ def update_product(conn, column, val, product_id):
 
 
 if __name__ == "__main__":
-    conn =  get_sql_connection()
+    # conn =  get_sql_connection()
     # print(get_all_products(conn))
     # print(delete_product(conn, 13))
-    print(update_product(conn, 'price_per_unit', '30', '15'))
+    print('owo')
