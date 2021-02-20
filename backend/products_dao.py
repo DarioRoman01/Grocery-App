@@ -59,8 +59,15 @@ def delete_product(conn, product_id):
     cursor.execute(query)
     conn.commit()
 
+def update_product(conn, column, val, product_id):
+    cursor = conn.cursor()
+    query = (f'UPDATE products SET {column} = {val} WHERE product_id = {product_id}')
+    cursor.execute(query)
+    conn.commit()
+
 
 if __name__ == "__main__":
     conn =  get_sql_connection()
     # print(get_all_products(conn))
-    print(delete_product(conn, 13))
+    # print(delete_product(conn, 13))
+    print(update_product(conn, 'price_per_unit', '30', '15'))
