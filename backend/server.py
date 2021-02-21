@@ -15,7 +15,9 @@ from backend import (
     delete_product,
     get_uoms,
     insert_new_product,
-    update_product
+    update_product,
+    insert_order,
+    get_all_orders
 )
 
 app = Flask(__name__)
@@ -64,6 +66,24 @@ def update_products():
     response = jsonify({
         'product_id': return_id
     })
+    response.headers.add('Access-Control-Allow-origin', '*')
+    return response
+
+@app.route('/getAllOrders', methods=['GET'])
+def get_orders():
+    orders = get_all_orders(conn)
+    response = jsonify(orders)
+    response.headers.add('Access-Control-Allow-origin', '*')
+    return response
+
+@app.route('/insertOrder', methods=['POST'])
+def create_order():
+    request_payload = json.loads(request.form['data'])
+    order_id = insert_order(conn, request_payload)
+    response = jsonify({
+        'order_id': order_id
+    })
+    response.headers.add('Access-Control-Allow-origin', '*')
     return response
 
 
